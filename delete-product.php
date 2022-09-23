@@ -6,10 +6,23 @@ use GuzzleHttp\Client;
 $client = new Client([
         'base_uri' => 'https://dummyjson.com/'
 ]);
-$response = $client->get('products');
+
+// Handling HTTP Response
+$products = [
+  'json' => ['id' => '31',
+  'title' => 'Iphone X',
+  'description' => 'Iphone X is a great phone',
+  'price' => '599',
+  'brand' => 'Apple',
+  'category' => 'smartphones',
+  'thumbnail' => 'thumbnail.jpg'
+	]
+];
+
+$response = $client->delete('https://dummyjson.com/products/1');
 $code = $response->getStatusCode();
 $body = $response->getBody();
-$products = json_decode($body)->products;
+$product = json_decode($body);
 //var_dump(json_decode($body))
 ?>
 
@@ -80,7 +93,7 @@ $products = json_decode($body)->products;
     </div>
   </nav>
   <!-- Navbar -->
-  <br><br><br><br>
+      <br><br><br><br>
         <div class = "container"> 
         <table class="table table-striped">
                 <thead>
@@ -95,7 +108,6 @@ $products = json_decode($body)->products;
                         </tr>
                 </thead>
         <tbody>
-                <?php foreach($products as $product){?>
                 <tr>
                 <th scope="row" href="single-product.php"><?php echo $product->id ?></th>
                 <td><?php echo $product->title?></td>
@@ -105,7 +117,6 @@ $products = json_decode($body)->products;
                 <td><?php echo $product->category?></td>
                 <td><img src="<?php echo $product->thumbnail?>"></td>
                 </tr>
-                <?php }?>
         </tbody>
 </table>
 </body>

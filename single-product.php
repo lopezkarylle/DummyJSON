@@ -6,13 +6,13 @@ use GuzzleHttp\Client;
 $client = new Client([
         'base_uri' => 'https://dummyjson.com/'
 ]);
-
 $id = $_GET["product_id"];
 $response = $client->get('products/' . $id);
 $code = $response->getStatusCode();
 $body = $response->getBody();
 $product = json_decode($body);
 //var_dump(json_decode($body))
+
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +82,7 @@ $product = json_decode($body);
     </div>
   </nav>
   <!-- Navbar -->
-
+      <br><br><br><br>
         <div class = "container"> 
         <table class="table table-striped">
                 <thead>
