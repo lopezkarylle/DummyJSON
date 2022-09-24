@@ -7,12 +7,11 @@ $client = new Client([
         'base_uri' => 'https://dummyjson.com/'
 ]);
 
-$response = $client->get('https://dummyjson.com/products/category/skincare');
+$response = $client->get('products/categories');
 $code = $response->getStatusCode();
 $body = $response->getBody();
-$product_category= json_decode($body, true);
-
-   //var_dump($product_category['products']);
+$product_category= json_decode($body);
+//var_dump($product_category['products']);
 ?>
 
 
@@ -27,27 +26,15 @@ $product_category= json_decode($body, true);
            <table class="table table-striped">
              <thead>
                <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Price</th>
-                <th scope="col">Brand</th>
                 <th scope="col">Category</th>
-                <th scope="col">Thumbnail</th>
                 </tr>
               </thead>
         <tbody>
         <?php
-        foreach ($product_category['products'] as $product){
+        foreach ($product_category as $category){
         ?>
           <tr>
-            <th scope="row" href="single-product.php"><?php echo $product['id']; ?></th>
-            <td><?php echo $product['title']; ?></td>
-            <td><?php echo $product['description']; ?></td>
-            <td><?php echo $product['price']; ?></td>
-            <td><?php echo $product['brand']; ?></td>
-            <td><?php echo $product['category']; ?></td>
-            <td><img src="<?php echo $product['thumbnail']; ?>" class="img-responsive" height="200px"></td>
+            <td><?php echo $category; ?></td>
           <tr>
      <?php
      }

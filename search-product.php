@@ -32,10 +32,10 @@ $client = new Client([
 if (isset($_POST['search_product'])){
 
     $search_product = $_POST['search_product'];
-    $response = $client->get('https://dummyjson.com/products/search?q='. $search_product);
+    $response = $client->get('products/search?q='. $search_product);
     $code = $response->getStatusCode();
     $body = $response->getBody();
-    $search_product = json_decode($body, true);
+    $search_product = json_decode($body);
     //var_dump($search_product['products']);
 
 ?>

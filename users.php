@@ -11,7 +11,7 @@ $response = $client->get('users');
 $code = $response->getStatusCode();
 $body = $response->getBody();
 $users = json_decode($body)->users;
-//var_dump(json_decode($body))
+var_dump(json_decode($body))
 
 ?>
 

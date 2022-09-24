@@ -16,7 +16,7 @@ $client = new Client([
 <style>
 	.login-form {
 		width: 450px;
-    	margin: 220px auto;
+    	margin: 60px auto;
 	}
     .login-form form {
     	margin-bottom: 15px;
@@ -35,6 +35,15 @@ $client = new Client([
         font-size: 15px;
         font-weight: bold;
     }
+
+    .alert {
+        display:inline-block;
+        text-align: center;
+        word-break: break-all;
+        width:650px;    
+        margin-left: 25%;
+      
+    }
 </style>
 </head>
 <body>
@@ -45,7 +54,7 @@ $client = new Client([
                 <input type="text" name=username class="form-control" placeholder="Username" required="required">
             </div>
             <div class="form-group">
-                <input type="text" name=password class="form-control" placeholder="Password" required="required">
+                <input type="password" name=password class="form-control" placeholder="Password" required="required">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block">Log in</button>
@@ -62,27 +71,26 @@ if (isset($_POST['username'])) {
 
         $username = $_POST['username'];
         $password = $_POST['password'];
-        // var_dump($username);
-        try {
-            $response = $client->request('POST','https://dummyjson.com/auth/login',
-            ['json'=>['username' => $username, 'password' => $password]
-        ]); 
 
-        //,array(['username' => $username, 'password' => $password]));
-        // . $username . '/' . $password
-        //$code = $response->getStatusCode();
+        $options = [
+            'json' => [
+            "username" => $username,
+            "password" => $password
+            ]
+        ];
+        
+        $response = $client->post("auth/login", $options);
+        $code = $response->getStatusCode();
         $body = $response->getBody();
-        $user_login = json_decode($body, true);
-        var_dump($user_login); } 
+        $user = json_decode($body);
+        //var_dump(json_decode($body));
+                // var_dump($username);
 
-        catch(Exception $e){ 
+        if ($username == $username AND $password == $password) {
+            echo '<div class="alert alert-success" role="alert">' . "Token: " .$user->token. '</div>' ;
+          } else {
             echo '<div class="alert alert-danger" role="alert"> Failed: No User </div>';
-        }
-         
-        // $body['username'] = $username;
-        //$body['password'] = $password;
-    } else {
-        echo "No user";
-    }
+          } 
+   }
 }
 ?>
